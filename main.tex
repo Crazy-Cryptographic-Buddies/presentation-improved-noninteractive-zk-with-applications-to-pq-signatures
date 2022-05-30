@@ -136,16 +136,27 @@
 	\end{frame}
 	
 	\section{An MPC Protocol}
-	\begin{frame}{Preprocessing Phase}
+	\begin{frame}{Preliminaries}
 		Let $C$ be a Boolean circuit with only AND ($\cdot$), XOR ($\oplus$) and NOT gates. 
 		
 		Define $\vert C \vert$ to be the number of AND gates of $C$.
 		
 		Let $z_\alpha$ be the value at wire $\alpha$ of the circuit. In particular:
 		\begin{itemize}
-			\item $z_\gamma = z_\alpha \cdot z_\beta$ for an AND gate with output wire $\gamma$ and input wires $\alpha$ and $\beta$.
 			\item $z_\gamma = z_\alpha \oplus z_\beta$ for a XOR gate with output wire $\gamma$ and input wires $\alpha$ and $\beta$.
 			\item $z_\gamma = \overline{z_\alpha}$ for a NOT gate with output wire $\gamma$ and input wire $\alpha$.
+			\item $z_\gamma = z_\alpha \cdot z_\beta$ for an AND gate with output wire $\gamma$ and input wires $\alpha$ and $\beta$.
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Masking}
+		Mask each wire of the circuit as follows:
+		\begin{itemize}
+			\item \textbf{Input wire:} Sample $\lambda_\alpha$ and compute $\hat{z}_\alpha := z_\alpha \oplus \lambda_\alpha$.
+			\item \textbf{Output of XOR gate:} Compute $\hat{z}_\gamma = (z_\alpha \oplus z_\beta) \oplus (\lambda_\alpha \oplus \lambda_\beta) = (z_\alpha \oplus \lambda_\alpha) \oplus (z_\beta \oplus \lambda_\beta) =\hat{z}_\alpha \oplus \hat{z}_\beta$.
+			\item \textbf{Output of AND gate:} For $z_\gamma = z_\alpha \cdot z_\beta$, 
+			
+			sample $\lambda_\gamma$ independently and compute $\hat{z}_\gamma := z_\gamma \oplus \lambda_\gamma$.
 		\end{itemize}
 	\end{frame}
 	
