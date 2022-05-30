@@ -153,11 +153,27 @@
 		Mask each wire of the circuit as follows:
 		\begin{itemize}
 			\item \textbf{Input wire:} Sample $\lambda_\alpha$ and compute $\hat{z}_\alpha := z_\alpha \oplus \lambda_\alpha$.
-			\item \textbf{Output of XOR gate:} Compute $\hat{z}_\gamma = (z_\alpha \oplus z_\beta) \oplus (\lambda_\alpha \oplus \lambda_\beta) = (z_\alpha \oplus \lambda_\alpha) \oplus (z_\beta \oplus \lambda_\beta) =\hat{z}_\alpha \oplus \hat{z}_\beta$.
+			\item \textbf{Output of XOR gate:} Let $\lambda_\gamma = \lambda_\alpha \oplus \lambda_\beta$. Compute $\hat{z}_\gamma = z_\gamma \oplus \lambda_\gamma = (z_\alpha \oplus \lambda_\alpha) \oplus (z_\beta \oplus \lambda_\beta) =\hat{z}_\alpha \oplus \hat{z}_\beta$.
 			\item \textbf{Output of AND gate:} For $z_\gamma = z_\alpha \cdot z_\beta$, 
 			
 			sample $\lambda_\gamma$ independently and compute $\hat{z}_\gamma := z_\gamma \oplus \lambda_\gamma$.
 		\end{itemize}
+	\end{frame}
+
+	\begin{frame}{Multiparty Computation}
+		Run an MPC protocol ``in-the-head'' with $n$ parties $S_1, \dots, S_n$:
+		\begin{itemize}
+			\item For each mask $\lambda_\alpha$, define $[\lambda_\alpha] = (\lambda_\alpha^{(1)}, \dots, \lambda_\alpha^{(n)})$ satisfying 
+			\begin{equation*}
+				\lambda_\alpha = \lambda_\alpha^{(1)} \oplus \dots\oplus \lambda_\alpha^{(n)}.
+			\end{equation*}
+			\item Compute $\left(\hat{z}_\alpha\right)$ following circuit $C$ by using $\left(z_\alpha\right)$ and $\left([\lambda_\alpha]\right)$.
+		\end{itemize}
+		\textbf{Challenge.} Compute $\hat{z}_\gamma$ at each output wire of each AND gate, since $\hat{z}_\gamma$ is independent of $\hat{z}_\alpha$ and $\hat{z}_\beta$.
+	\end{frame}
+
+	\begin{frame}{Computing $\hat{z}_\gamma$ for Output Wires of AND Gates}
+		\textbf{Idea.} Additionally compute $\lambda_{\alpha,\beta} := \lambda_\alpha \cdot \lambda_\beta$ and distribute to $n$ parties using shares of $[\lambda_{\alpha,\beta}]$.
 	\end{frame}
 	
 	\begin{frame}{}
