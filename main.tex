@@ -173,7 +173,15 @@
 	\end{frame}
 
 	\begin{frame}{Computing $\hat{z}_\gamma$ for Output Wires of AND Gates}
-		\textbf{Idea.} Additionally compute $\lambda_{\alpha,\beta} := \lambda_\alpha \cdot \lambda_\beta$ and distribute to $n$ parties using shares of $[\lambda_{\alpha,\beta}]$.
+		Additionally compute $\lambda_{\alpha,\beta} := \lambda_\alpha \cdot \lambda_\beta$ and distribute each share of $[\lambda_{\alpha,\beta}]$ to each party.
+		
+		For each $i$ among $n$ parties, for each AND gate, compute $s^{(i)} := \hat{z}_\alpha \cdot\lambda_\beta^{(i)}  \oplus \hat{z}_\beta\cdot\lambda_\alpha^{(i)}  \oplus \lambda_{\alpha,\beta}^{(i)}  \oplus \lambda_\gamma^{(i)} $.
+		
+		Hence $[s] = (s^{(1)}, \dots, s^{(n)})$. 
+		
+		Each party broadcast $s^{(i)}$ to every other party. 
+		
+		Each party hence obtains $s$ and can compute $\hat{z}_\gamma := s \oplus \hat{z}_\alpha \cdot \hat{z}_\beta$.
 	\end{frame}
 	
 	\begin{frame}{}
