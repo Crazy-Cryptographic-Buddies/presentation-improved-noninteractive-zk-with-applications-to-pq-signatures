@@ -137,7 +137,16 @@
 	
 	\section{An MPC Protocol}
 	\begin{frame}{Preprocessing Phase}
+		Let $C$ be a Boolean circuit with only AND ($\cdot$), XOR ($\oplus$) and NOT gates. 
 		
+		Define $\vert C \vert$ to be the number of AND gates of $C$.
+		
+		Let $z_\alpha$ be the value at wire $\alpha$ of the circuit. In particular:
+		\begin{itemize}
+			\item $z_\gamma = z_\alpha \cdot z_\beta$ for an AND gate with output wire $\gamma$ and input wires $\alpha$ and $\beta$.
+			\item $z_\gamma = z_\alpha \oplus z_\beta$ for a XOR gate with output wire $\gamma$ and input wires $\alpha$ and $\beta$.
+			\item $z_\gamma = \overline{z_\alpha}$ for a NOT gate with output wire $\gamma$ and input wire $\alpha$.
+		\end{itemize}
 	\end{frame}
 	
 	\begin{frame}{}
