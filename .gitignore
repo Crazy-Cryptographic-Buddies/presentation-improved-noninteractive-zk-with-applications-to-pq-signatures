@@ -13,3 +13,6 @@ tikzlibrarycrypto.symbols.code.tex
 techreports.tex
 *.pdf
 .DS_Store
+*.nav
+*.out
+*.snm
