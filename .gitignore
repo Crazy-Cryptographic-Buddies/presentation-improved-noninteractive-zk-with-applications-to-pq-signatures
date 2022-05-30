@@ -1,0 +1,15 @@
+*.aux
+*.bbl
+*.blg
+*.idx
+*.lof
+*.log
+*.lot
+*.synctex.gz
+*.tex.dQ3940
+*.toc
+pgflibraryarrows.new.code.tex
+tikzlibrarycrypto.symbols.code.tex
+techreports.tex
+*.pdf
+.DS_Store
