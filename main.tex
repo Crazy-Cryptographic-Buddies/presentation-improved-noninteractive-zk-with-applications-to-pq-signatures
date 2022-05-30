@@ -127,11 +127,11 @@
 	\section{Introduction}
 	\begin{frame}{Introduction}
 		\begin{itemize}
-			\item \cite{KatzK018} showed a novel way to instantiate ``MPC-in-the-head'' approach \cite{IshaiKOS07} for circuits of around $300$ to $10^5$ gates.
+			\item \cite{KatzK018} showed a novel way to instantiate ``MPC-in-the-head'' approach \cite{IshaiKOS07} for circuits of around $300$ to $10^5$ gates.\pause
 			
-			\item The resulting construction is designed in the ``preprocessing model'' where preprocessings can be conducted before witnesses are known.
+			\item The result is designed in the ``preprocessing model'' where preprocessings can be conducted before witnesses are known.\pause
 			
-			\item Offer 3.2-time shorter proof size compared to Chase et al. \cite{ChaseDGORRSZ17} (Picnic 1).
+			\item Offer 3.2-time shorter proof size compared to Chase et al. \cite{ChaseDGORRSZ17} (Picnic 1).\pause
 			
 			\item The resulting construction becomes Picnic 2 with further improvements \cite{KalesZ20} leading to Picnic 3.
 		\end{itemize}
@@ -139,23 +139,23 @@
 	
 	\section{An MPC Protocol}
 	\begin{frame}{Preliminaries}
-		Let $C$ be a Boolean circuit with only AND ($\cdot$), XOR ($\oplus$) and NOT gates. 
+		Let $C$ be a Boolean circuit with only AND ($\cdot$), XOR ($\oplus$) and NOT gates. \pause
 		
-		Define $\vert C \vert$ to be the number of AND gates of $C$.
+		Define $\vert C \vert$ to be the number of AND gates of $C$.\pause
 		
-		Let $z_\alpha$ be the value at wire $\alpha$ of the circuit. In particular:
+		Let $z_\alpha$ be the value at wire $\alpha$ of the circuit. In particular:\pause
 		\begin{itemize}
-			\item $z_\gamma = z_\alpha \oplus z_\beta$ for a XOR gate with output wire $\gamma$ and input wires $\alpha$ and $\beta$.
-			\item $z_\gamma = \overline{z_\alpha}$ for a NOT gate with output wire $\gamma$ and input wire $\alpha$.
+			\item $z_\gamma = z_\alpha \oplus z_\beta$ for a XOR gate with output wire $\gamma$ and input wires $\alpha$ and $\beta$.\pause
+			\item $z_\gamma = \overline{z_\alpha}$ for a NOT gate with output wire $\gamma$ and input wire $\alpha$.\pause
 			\item $z_\gamma = z_\alpha \cdot z_\beta$ for an AND gate with output wire $\gamma$ and input wires $\alpha$ and $\beta$.
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Masking}
-		Mask each wire of the circuit as follows:
+		Mask each wire of the circuit as follows:\pause
 		\begin{itemize}
-			\item \textbf{Input wire:} Sample $\lambda_\alpha$ and compute $\hat{z}_\alpha := z_\alpha \oplus \lambda_\alpha$.
-			\item \textbf{Output of XOR gate:} Let $\lambda_\gamma = \lambda_\alpha \oplus \lambda_\beta$. Compute $\hat{z}_\gamma = z_\gamma \oplus \lambda_\gamma = (z_\alpha \oplus \lambda_\alpha) \oplus (z_\beta \oplus \lambda_\beta) =\hat{z}_\alpha \oplus \hat{z}_\beta$.
+			\item \textbf{Input wire:} Sample $\lambda_\alpha$ and compute $\hat{z}_\alpha := z_\alpha \oplus \lambda_\alpha$.\pause
+			\item \textbf{Output of XOR gate:} Let $\lambda_\gamma = \lambda_\alpha \oplus \lambda_\beta$. Compute $\hat{z}_\gamma = z_\gamma \oplus \lambda_\gamma = (z_\alpha \oplus \lambda_\alpha) \oplus (z_\beta \oplus \lambda_\beta) =\hat{z}_\alpha \oplus \hat{z}_\beta$.\pause
 			\item \textbf{Output of AND gate:} For $z_\gamma = z_\alpha \cdot z_\beta$, 
 			
 			sample $\lambda_\gamma$ independently and compute $\hat{z}_\gamma := z_\gamma \oplus \lambda_\gamma$.
@@ -163,61 +163,61 @@
 	\end{frame}
 
 	\begin{frame}{Multiparty Computation}
-		Run an MPC protocol ``in-the-head'' with $n$ parties $S_1, \dots, S_n$:
+		Run an MPC protocol ``in-the-head'' with $n$ parties $S_1, \dots, S_n$:\pause
 		\begin{itemize}
-			\item For each mask $\lambda_\alpha$, define $[\lambda_\alpha] = (\lambda_\alpha^{(1)}, \dots, \lambda_\alpha^{(n)})$ satisfying 
+			\item For each mask $\lambda_\alpha$, define $[\lambda_\alpha] = (\lambda_\alpha^{(1)}, \dots, \lambda_\alpha^{(n)})$ satisfying \pause
 			\begin{equation*}
-				\lambda_\alpha = \lambda_\alpha^{(1)} \oplus \dots\oplus \lambda_\alpha^{(n)}.
+				\lambda_\alpha = \lambda_\alpha^{(1)} \oplus \dots\oplus \lambda_\alpha^{(n)}.\pause
 			\end{equation*}
-			\item Compute $\left(\hat{z}_\alpha\right)$ following circuit $C$ by using $\left(z_\alpha\right)$ and $\left([\lambda_\alpha]\right)$.
+			\item Compute $\left(\hat{z}_\alpha\right)$ following circuit $C$ by using $\left(z_\alpha\right)$ and $\left([\lambda_\alpha]\right)$.\pause
 		\end{itemize}
 		\textbf{Challenge.} Compute $\hat{z}_\gamma$ at each output wire of each AND gate, since $\hat{z}_\gamma$ is independent of $\hat{z}_\alpha$ and $\hat{z}_\beta$.
 	\end{frame}
 
 	\begin{frame}{Computing $\hat{z}_\gamma$ for Output Wires of AND Gates}
-		Additionally compute $\lambda_{\alpha,\beta} := \lambda_\alpha \cdot \lambda_\beta$ and distribute each share of $[\lambda_{\alpha,\beta}]$ to each party.
+		Additionally compute $\lambda_{\alpha,\beta} := \lambda_\alpha \cdot \lambda_\beta$ and distribute each share of $[\lambda_{\alpha,\beta}]$ to each party.\pause
 		
-		For each $i$ among $n$ parties, for each AND gate, compute $s^{(i)}_\gamma := \hat{z}_\alpha \cdot\lambda_\beta^{(i)}  \oplus \hat{z}_\beta\cdot\lambda_\alpha^{(i)}  \oplus \lambda_{\alpha,\beta}^{(i)}  \oplus \lambda_\gamma^{(i)} $.
+		For each $i$ among $n$ parties, for each AND gate, compute $s^{(i)}_\gamma := \hat{z}_\alpha \cdot\lambda_\beta^{(i)}  \oplus \hat{z}_\beta\cdot\lambda_\alpha^{(i)}  \oplus \lambda_{\alpha,\beta}^{(i)}  \oplus \lambda_\gamma^{(i)} $.\pause
 		
-		Hence $[s_\gamma] = (s^{(1)}_\gamma, \dots, s^{(n)}_\gamma)$. 
+		Hence $[s_\gamma] = (s^{(1)}_\gamma, \dots, s^{(n)}_\gamma)$. \pause
 		
-		Each party broadcast $s^{(i)}$ to every other party. 
+		Each party broadcast $s^{(i)}$ to every other party. \pause
 		
 		Each party hence obtains $s$ and can compute $\hat{z}_\gamma := s_\gamma \oplus \hat{z}_\alpha \cdot \hat{z}_\beta$.
 	\end{frame}
 
 	\section{A $5$-Round ZKPoK}
 	\begin{frame}{General Idea} 
-		Prover runs $m$ instances of the MPC protocol.
+		Prover runs $m$ instances of the MPC protocol.\pause
 		\begin{itemize}
-			\item \textbf{Round 1 (Prover).} For each $j \in [m]$, generate and commit all possible $(\lambda_\alpha)$ and $(\lambda_{\alpha,\beta})$.
-			\item \textbf{Round 2 (Verifier).} Send $c \in [m]$ to check the correct computation of instance $c$-th.
-			\item \textbf{Round 3 (Prover).} There are $2$ cases:
+			\item \textbf{Round 1 (Prover).} For each $j \in [m]$, generate and commit all possible $(\lambda_\alpha)$ and $(\lambda_{\alpha,\beta})$.\pause
+			\item \textbf{Round 2 (Verifier).} Send $c \in [m]$ to check the correct computation of instance $c$-th.\pause
+			\item \textbf{Round 3 (Prover).} There are $2$ cases:\pause
 			\begin{itemize}
-				\item For all $j \neq c$, open all related commitments.
-				\item Simulate MPC w.r.t $c$-th instance, and commit the broadcast messages by $h' := H\left((s_\gamma^{(1)}), \dots, (s_\gamma^{(n)})\right)$.
+				\item For all $j \neq c$, open all related commitments.\pause
+				\item Simulate MPC w.r.t $c$-th instance, and commit the broadcast messages by $h' := H\left((s_\gamma^{(1)}), \dots, (s_\gamma^{(n)})\right)$.\pause
 			\end{itemize}
-			\item \textbf{Round 4 (Verifier).} Send $p \in [n]$.
-			\item \textbf{Round 5 (Prover).} Open commitments of all parties but $p$-th, and send $(s_\gamma^{(p)})$.
+			\item \textbf{Round 4 (Verifier).} Send $p \in [n]$.\pause
+			\item \textbf{Round 5 (Prover).} Open commitments of all parties but $p$-th, and send $(s_\gamma^{(p)})$.\pause
 			\item \textbf{Verification.} Verify opened commitments, and simulate $c$-th instance to compute broadcast messages as well as open $h'$.
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}{Security}
-		If commitment schemes and hash functions are secure, then 
+		If commitment schemes and hash functions are secure, then \pause
 		\begin{itemize}
-			\item The $5$-round protocol is honest-verifier ZKPoK.
-			\item Soundness error is $\max\{\frac{1}{n}, \frac{1}{m}\}$.
+			\item The $5$-round protocol is honest-verifier ZKPoK.\pause
+			\item Soundness error is $\max\{\frac{1}{n}, \frac{1}{m}\}$.\pause
 		\end{itemize}
 		\textbf{Issue.} Soundness error is large.
 	\end{frame}
 
 	\section{Transforming $5$ to $3$-Round ZKPoK}
 	\begin{frame}{General Idea}
-		Instead of verifying an instance of MPC protocol, do as follows:
+		Instead of verifying an instance of MPC protocol, do as follows:\pause
 		\begin{itemize}
-			\item Verify executions of a subset $\mathcal{C}$ of instances.
-			\item For each instance in $\mathcal{C}$, open commitments of all parties but $p$-th (challenge from verifier) and send $(s_\gamma^{(p)})$ to verifier for verification.
+			\item Verify executions of a subset $\mathcal{C}$ of instances.\pause
+			\item For each instance in $\mathcal{C}$, open commitments of all parties but $p$-th (challenge from verifier) and send $(s_\gamma^{(p)})$ to verifier for verification.\pause
 		\end{itemize}
 		
 		\textbf{Achievement.} A controllable soundness error equal to 
@@ -233,9 +233,9 @@
 
 	\section{Results and Improvements}
 	\begin{frame}{Picnic 2 and Picnic 3}
-		By applying Fiat-Shamir paradigm, the $3$-round ZKPoK becomes a NIZKPoK.
+		By applying Fiat-Shamir paradigm, the $3$-round ZKPoK becomes a NIZKPoK.\pause
 		
-		By using LowMC as a circuit, the NIZKPoK, in the form of signature, is Picnic 2.
+		By using LowMC as a circuit, the NIZKPoK, in the form of signature, is Picnic 2.\pause
 		
 		\cite{KalesZ20} then optimized to achieve smaller proof size (and hence signature size) which later became Picnic 3.
 	\end{frame}
