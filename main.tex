@@ -187,7 +187,7 @@
 	\end{frame}
 
 	\section{A $5$-Round ZKPoK}
-	\begin{frame}{General Idea} 
+	\begin{frame}{Technical Overview} 
 		Prover runs $m$ instances of the MPC protocol.\pause
 		\begin{itemize}
 			\item \textbf{Round 1 (Prover).} For each $j \in [m]$, generate and commit all possible $(\lambda_\alpha)$ and $(\lambda_{\alpha,\beta})$.\pause
@@ -209,11 +209,11 @@
 			\item The $5$-round protocol is honest-verifier ZKPoK.\pause
 			\item Soundness error is $\max\{\frac{1}{n}, \frac{1}{m}\}$.\pause
 		\end{itemize}
-		\textbf{Issue.} Soundness error is large.
+		\textbf{Issue.} Can we make soundness smaller?
 	\end{frame}
 
 	\section{Transforming $5$ to $3$-Round ZKPoK}
-	\begin{frame}{General Idea}
+	\begin{frame}{Technical Overview}
 		Instead of verifying an instance of MPC protocol, do as follows:\pause
 		\begin{itemize}
 			\item Verify executions of a subset $\mathcal{C}$ of instances.\pause
